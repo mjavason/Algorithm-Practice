@@ -13,57 +13,97 @@ class ListNode {
 // Explanation: 342 + 465 = 807.
 
 function addTwoNumbers(
-  l1: ListNode | null,
-  l2: ListNode | null
+    l1: ListNode | null,
+    l2: ListNode | null
 ): ListNode | null {
-  let l1AsNum: string = '';
-  let l2AsNum: string = '';
+    let l1AsNum: string = '';
+    let l2AsNum: string = '';
 
-  let l1End: ListNode | null = l1;
-  let l2End: ListNode | null = l2;
-  while (l1End) {
-    l1AsNum += l1End.val;
-    l1End = l1End.next;
-  }
-
-  while (l2End) {
-    l2AsNum += l2End.val;
-    l2End = l2End.next;
-  }
-
-  const l1AsNumReversed = l1AsNum.split('').reverse().join('');
-  const l2AsNumReversed = l2AsNum.split('').reverse().join('');
-  const total = (
-    parseInt(l1AsNumReversed) + parseInt(l2AsNumReversed)
-  ).toString();
-
-  console.log(l1AsNumReversed, l2AsNumReversed);
-  console.log(total);
-  const bottomListNode = new ListNode(parseInt(total[0]));
-
-  if (total.length == 1) return bottomListNode;
-
-  let currentListNode;
-  for (let i = 1; i < total.length; i++) {
-    if (i == 1) {
-      currentListNode = new ListNode(parseInt(total[i]), bottomListNode);
-    } else {
-      currentListNode = new ListNode(parseInt(total[i]), currentListNode);
+    let l1End: ListNode | null = l1;
+    let l2End: ListNode | null = l2;
+    while (l1End) {
+        l1AsNum += l1End.val;
+        l1End = l1End.next;
     }
-  }
 
-  return currentListNode;
+    while (l2End) {
+        l2AsNum += l2End.val;
+        l2End = l2End.next;
+    }
+
+    let l1AsNumReversed = l1AsNum.split('').reverse().join('');
+    let l2AsNumReversed = l2AsNum.split('').reverse().join('');
+    console.log(l1AsNumReversed, l2AsNumReversed)
+    const total = (
+        BigInt(l1AsNumReversed) + BigInt(l2AsNumReversed)
+    ).toString();    
+    console.log(total)
+
+    let currentListNode;
+    for (let i = 0; i < total.length; i++) {
+        if (i == 0) {
+            currentListNode = new ListNode(parseInt(total[i]));
+        } else {
+            currentListNode = new ListNode(parseInt(total[i]), currentListNode);
+        }
+    }
+
+    return currentListNode;
 }
 
-let l1S3 = new ListNode(3, null);
-let l1S2 = new ListNode(4, l1S3);
-let l1S1 = new ListNode(2, l1S2);
+// let l1S3 = new ListNode(3, null);
+// let l1S2 = new ListNode(4, l1S3);
+// let l1S1 = new ListNode(2, l1S2);
 
-let l2S3 = new ListNode(4, null);
-let l2S2 = new ListNode(6, l2S3);
-let l2S1 = new ListNode(5, l2S2);
+// let l2S3 = new ListNode(4, null);
+// let l2S2 = new ListNode(6, l2S3);
+// let l2S1 = new ListNode(5, l2S2);
 
 // let l1S1 = new ListNode(0, null);
 // let l2S1 = new ListNode(1, null);
+
+// let l1S3 = new ListNode(0, null);
+// let l1S2 = new ListNode(0, l1S3);
+// let l1S1 = new ListNode(5, l1S2);
+
+// let l2S3 = new ListNode(0, null);
+// let l2S2 = new ListNode(0, l2S3);
+// let l2S1 = new ListNode(5, l2S2);
+
+let l1S30 = new ListNode(1, null);  // Last element
+let l1S29 = new ListNode(0, l1S30);
+let l1S28 = new ListNode(0, l1S29);
+let l1S27 = new ListNode(0, l1S28);
+let l1S26 = new ListNode(0, l1S27);
+let l1S25 = new ListNode(0, l1S26);
+let l1S24 = new ListNode(0, l1S25);
+let l1S23 = new ListNode(0, l1S24);
+let l1S22 = new ListNode(0, l1S23);
+let l1S21 = new ListNode(0, l1S22);
+let l1S20 = new ListNode(0, l1S21);
+let l1S19 = new ListNode(0, l1S20);
+let l1S18 = new ListNode(0, l1S19);
+let l1S17 = new ListNode(0, l1S18);
+let l1S16 = new ListNode(0, l1S17);
+let l1S15 = new ListNode(0, l1S16);
+let l1S14 = new ListNode(0, l1S15);
+let l1S13 = new ListNode(0, l1S14);
+let l1S12 = new ListNode(0, l1S13);
+let l1S11 = new ListNode(0, l1S12);
+let l1S10 = new ListNode(0, l1S11);
+let l1S9  = new ListNode(0, l1S10);
+let l1S8  = new ListNode(0, l1S9);
+let l1S7  = new ListNode(0, l1S8);
+let l1S6  = new ListNode(0, l1S7);
+let l1S5  = new ListNode(0, l1S6);
+let l1S4  = new ListNode(0, l1S5);
+let l1S3  = new ListNode(0, l1S4);
+let l1S2  = new ListNode(0, l1S3);
+let l1S1  = new ListNode(1, l1S2);  // First element
+
+let l2S3 = new ListNode(4, null);   // Last element
+let l2S2 = new ListNode(6, l2S3);
+let l2S1 = new ListNode(5, l2S2);   // First element
+
 
 console.log(addTwoNumbers(l1S1, l2S1));
