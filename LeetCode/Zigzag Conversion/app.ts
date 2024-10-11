@@ -8,7 +8,7 @@ function convert(s: string, numRows: number): string {
   } else {
     middle++;
   }
-  if(middle == 1) middle++
+  if (middle == 1) middle++;
 
   let currentLine: string[] = [];
   let finalString = '';
@@ -20,9 +20,17 @@ function convert(s: string, numRows: number): string {
     if (column == 0) {
       let addCount = 0;
       for (let k = 0; k < numRows; k++) {
-        if (addCount > 0) i++;
-        currentLine.push(s[i]);
-        addCount++;
+        if (numRows == 2 && i > 0) {
+          if (k % 2) {
+            currentLine.push(s[i]);
+          } else {
+            currentLine.push('');
+          }
+        } else {
+          if (addCount > 0) i++;
+          currentLine.push(s[i]);
+          addCount++;
+        }
       }
     } else {
       let addCount = 0;
@@ -63,7 +71,7 @@ function convert(s: string, numRows: number): string {
 }
 
 // const testCase = 'PAYPALISHIRING';
-const testCase = 'ABCD';
+const testCase = 'ABCDE';
 
 console.log(convert(testCase, 2));
 console.log(zigzagArr);
