@@ -1,27 +1,32 @@
 let zigzagArr: string[][] = [];
 function convert(s: string, numRows: number): string {
-  let middle = Math.ceil(numRows / 2) - 1;
+  let middle = numRows - 2;
+  if (middle % 2) {
+    middle += numRows % 2;
+  } else {
+    middle++;
+  }
   let currentLine: string[] = [];
   let finalString = '';
   let count = 0;
-  let isOdd = numRows % 2;
 
   for (let i = 0; i < s.length; i++) {
-    let isntMiddle = (count + 1) % (numRows + 1);
-    // console.log(isntMiddle);
-    if (!isntMiddle) {
+    let column = count % 2;
+    // console.log(column);
+
+    if (column == 0) {
       let addCount = 0;
       for (let k = 0; k < numRows; k++) {
-        if (isOdd) {
-          if (k >= middle && k <= middle) {
-            if (addCount > 0) i++;
-            currentLine.push(s[i]);
-            addCount++;
-          } else {
-            currentLine.push('');
-          }
-        } else {
-          if (k >= middle && k <= middle + 1) {
+        if (addCount > 0) i++;
+        currentLine.push(s[i]);
+        addCount++;
+      }
+      // console.log(currentLine)
+    } else {
+      let addCount = 0;
+      for (let k = 1; k < middle; k++) {
+        for (let j = 0; j < numRows; j++) {
+          if (k >= j && k <= j) {
             if (addCount > 0) i++;
             currentLine.push(s[i]);
             addCount++;
@@ -29,15 +34,16 @@ function convert(s: string, numRows: number): string {
             currentLine.push('');
           }
         }
+        zigzagArr.push(currentLine);
+        currentLine = [];
       }
-    } else {
-      currentLine.push(s[i]);
     }
 
     if (currentLine.length >= numRows || i + 1 >= s.length) {
       zigzagArr.push(currentLine);
       currentLine = [];
     }
+
     count++;
   }
 
@@ -54,4 +60,4 @@ function convert(s: string, numRows: number): string {
 }
 
 console.log(convert('PAYPALISHIRING', 4));
-console.log(zigzagArr)
+console.log(zigzagArr);
