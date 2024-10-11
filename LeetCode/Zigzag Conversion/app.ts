@@ -1,18 +1,21 @@
 let zigzagArr: string[][] = [];
 function convert(s: string, numRows: number): string {
+  if (s.length <= 1 || numRows <= 1) return s;
+
   let middle = numRows - 2;
   if (middle % 2) {
     middle += numRows % 2;
   } else {
     middle++;
   }
+  if(middle == 1) middle++
+
   let currentLine: string[] = [];
   let finalString = '';
   let count = 0;
 
   for (let i = 0; i < s.length; i++) {
     let column = count % 2;
-    // console.log(column);
 
     if (column == 0) {
       let addCount = 0;
@@ -21,7 +24,6 @@ function convert(s: string, numRows: number): string {
         currentLine.push(s[i]);
         addCount++;
       }
-      // console.log(currentLine)
     } else {
       let addCount = 0;
       for (let k = 1; k < middle; k++) {
@@ -34,6 +36,7 @@ function convert(s: string, numRows: number): string {
             currentLine.push('');
           }
         }
+        currentLine = currentLine.reverse();
         zigzagArr.push(currentLine);
         currentLine = [];
       }
@@ -59,5 +62,8 @@ function convert(s: string, numRows: number): string {
   return finalString;
 }
 
-console.log(convert('PAYPALISHIRING', 4));
+// const testCase = 'PAYPALISHIRING';
+const testCase = 'ABCD';
+
+console.log(convert(testCase, 2));
 console.log(zigzagArr);
