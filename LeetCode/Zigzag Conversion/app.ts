@@ -1,77 +1,28 @@
-let zigzagArr: string[][] = [];
 function convert(s: string, numRows: number): string {
-  if (s.length <= 1 || numRows <= 1) return s;
+  // If only one row or the string is too short, no need for zigzagging
+  if (numRows <= 1 || s.length <= 1) return s;
 
-  let middle = numRows - 2;
-  if (middle % 2) {
-    middle += numRows % 2;
-  } else {
-    middle++;
-  }
-  if (middle == 1) middle++;
+  // Create an array for each row in the zigzag pattern
+  let rows: string[] = new Array(Math.min(numRows, s.length)).fill('');
+  console.log(rows);
 
-  let currentLine: string[] = [];
-  let finalString = '';
-  let count = 0;
+  let currentRow = 0;
+  let goingDown = false;
 
+  // Traverse the string, placing each character in the correct row
   for (let i = 0; i < s.length; i++) {
-    let column = count % 2;
+    rows[currentRow] += s[i];
 
-    if (column == 0) {
-      let addCount = 0;
-      for (let k = 0; k < numRows; k++) {
-        if (numRows == 2 && i > 0) {
-          if (k % 2) {
-            currentLine.push(s[i]);
-          } else {
-            currentLine.push('');
-          }
-        } else {
-          if (addCount > 0) i++;
-          currentLine.push(s[i]);
-          addCount++;
-        }
-      }
-    } else {
-      let addCount = 0;
-      for (let k = 1; k < middle; k++) {
-        for (let j = 0; j < numRows; j++) {
-          if (k >= j && k <= j) {
-            if (addCount > 0) i++;
-            currentLine.push(s[i]);
-            addCount++;
-          } else {
-            currentLine.push('');
-          }
-        }
-        currentLine = currentLine.reverse();
-        zigzagArr.push(currentLine);
-        currentLine = [];
-      }
-    }
+    // Reverse the direction when reaching the top or bottom row
+    if (currentRow === 0 || currentRow === numRows - 1) goingDown = !goingDown;
 
-    if (currentLine.length >= numRows || i + 1 >= s.length) {
-      zigzagArr.push(currentLine);
-      currentLine = [];
-    }
-
-    count++;
+    // Update the row index based on the current direction
+    currentRow += goingDown ? 1 : -1;
+    console.log(rows)
   }
 
-  for (let i = 0; i < zigzagArr.length; i++) {
-    for (let k = 0; k < zigzagArr[i].length; k++) {
-      for (let j = 0; j < zigzagArr.length; j++) {
-        if (zigzagArr[j][k]) finalString += zigzagArr[j][k];
-        if (finalString.length >= s.length) return finalString;
-      }
-    }
-  }
-
-  return finalString;
+  // Join all the rows together to form the final zigzag string
+  return rows.join('');
 }
 
-// const testCase = 'PAYPALISHIRING';
-const testCase = 'ABCDE';
-
-console.log(convert(testCase, 2));
-console.log(zigzagArr);
+console.log(convert('PAYPALISHIRING', 3));
