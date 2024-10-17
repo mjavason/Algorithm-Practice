@@ -1,12 +1,9 @@
 function reverse(x: number): number {
-  let xString = x.toString();
-  let sign = xString[0] == '-' ? '-' : '';
+  let sign = x.toString()[0] == '-' ? -1 : 1;
+  x = parseInt(x.toString().split('').reverse().join(''));
 
-  xString = `${sign}${xString.split('').reverse().join('')}`;
-  x = parseInt(xString);
-
-  if (x <= -(2 ** 31) || x >= 2 ** 31 - 1) return 0;
-  return x;
+  if (x >= 2 ** 31 - 1) return 0;
+  return x * sign;
 }
 
-console.log(reverse(-12345));
+console.log(reverse(-123455555555));
