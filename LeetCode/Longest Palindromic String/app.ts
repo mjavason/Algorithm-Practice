@@ -1,17 +1,29 @@
 function longestPalindrome(s: string): string {
+  if (s.length <= 1) return s; // Handle edge cases for short strings.
+
   let longestString = s[0];
-  let currentString;
+
+  // Helper function to expand around a center and check for palindrome.
+  const expandAroundCenter = (left: number, right: number) => {
+    while (left >= 0 && right < s.length && s[left] === s[right]) {
+      left--;
+      right++;
+    }
+    return s.slice(left + 1, right); // Return the palindrome found.
+  };
 
   for (let i = 0; i < s.length; i++) {
-    currentString = s[i];
-    for (let k = i + 1; k < s.length; k++) {
-      currentString += s[k];
-      if (s[i] == s[k] && currentString.length > longestString.length) {
-        if (currentString == currentString.split('').reverse().join(''))
-          longestString = currentString;
-      }
+    // Check for odd-length palindromes (single character center).
+    let oddPalindrome = expandAroundCenter(i, i);
+    if (oddPalindrome.length > longestString.length) {
+      longestString = oddPalindrome;
     }
-    if (longestString.length >= s.length - i + 1) return longestString;
+
+    // Check for even-length palindromes (two character center).
+    let evenPalindrome = expandAroundCenter(i, i + 1);
+    if (evenPalindrome.length > longestString.length) {
+      longestString = evenPalindrome;
+    }
   }
 
   return longestString;
